@@ -24,7 +24,7 @@ $daftarBuku = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo $flash['pesan']; ?></p>
             <?php endif; ?>
 
-            <div class="search-box">
+             <div class="search-box">
             <form method="get" action="list.php">
                 <label for="search-input">Cari Judul Buku</label>
                 <input type="text" id="search-input" name="q" placeholder="Ketik judul buku..."
@@ -34,6 +34,7 @@ $daftarBuku = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <a href="list.php">Reset</a>
                 <?php endif; ?>
             </form>
+            </div>
 
             <div class="table-responsive">
             <table>
@@ -50,9 +51,10 @@ $daftarBuku = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tbody>
                     <?php if (empty($daftarBuku)): ?>
                     <tr>
-                        <td colspan="6">
+                         <td colspan="6">
                             <?php echo $keyword !== '' ? 'Tidak ada buku yang cocok dengan pencarian.' : 'Belum ada data buku. Silakan tambah lewat menu "Tambah Buku".'; ?>
                         </td>
+                    </tr>
                     <?php else: ?>
                         <?php foreach ($daftarBuku as $buku): ?>
                         <tr>
@@ -60,9 +62,9 @@ $daftarBuku = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?php echo $buku['pengarang']; ?></td>
                             <td><?php echo $buku['tahun']; ?></td>
                             <td><?php echo $buku['stok']; ?></td>
-                            <<td>
+                            <td>
                                 <?php
-                                echo $buku['tanggal_ditambahkan']
+                                echo !empty($buku['tanggal_ditambahkan'])
                                     ? date('d-m-Y H:i', strtotime($buku['tanggal_ditambahkan']))
                                     : '-';
                                 ?>
